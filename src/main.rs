@@ -1,3 +1,4 @@
+use minigrep::search_file_path_for_string;
 use std::{env, eprintln, println};
 
 fn main() {
@@ -14,4 +15,14 @@ fn main() {
         "Specified file path: {}, search string: {}",
         file_path, search_string
     );
+
+    match search_file_path_for_string(file_path, search_string) {
+        Ok(matches) => {
+            println!("Found {} matches:", matches.len());
+            for (i, m) in matches.iter().enumerate() {
+                println!("{}: {m}", i + 1);
+            }
+        }
+        Err(e) => eprintln!("Encountered error {}", e),
+    }
 }
